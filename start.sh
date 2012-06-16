@@ -2,8 +2,10 @@
 
 cd ${OPENSHIFT_DATA_DIR}jetty
 
-if [ -e webapps ]; then
+if [ -L webapps ]; then
   rm webapps
+else
+  rm -rf webapps
 fi
 
 ln -s ${OPENSHIFT_REPO_DIR}deployments webapps
