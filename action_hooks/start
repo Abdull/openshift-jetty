@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function run {
+  curl --silent -L https://raw.github.com/marekjelen/openshift-jetty/master/$1.sh | bash
+  wait
+}
+
+run "setup"
+run "build"
+run "start"
