@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl --silent -L https://raw.github.com/marekjelen/openshift-jetty/master/stop.sh | bash
+curl --silent -L https://raw.github.com/Abdull/openshift-jetty/master/stop.sh | bash
