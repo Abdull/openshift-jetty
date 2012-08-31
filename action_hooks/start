@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function run {
-  curl --silent -L https://raw.github.com/marekjelen/openshift-jetty/master/$1.sh | bash
+  curl --silent -L https://raw.github.com/Abdull/openshift-jetty/master/$1.sh | bash
   wait
 }
 
