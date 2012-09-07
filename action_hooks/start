@@ -5,6 +5,13 @@ function run {
   wait
 }
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "This .openshift start script is located in $DIR"
+echo "Current working directory for start script is `pwd`"
+echo "About to start pre_start / pre_start_diy-0.1 script"
+. $OPENSHIFT_REPO_DIR/.openshift/action_hooks/pre_start_diy-0.1
+echo "Finished pre_start_diy-0.1 script"
+
 run "setup"
 run "build"
 run "start"
