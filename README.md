@@ -14,7 +14,8 @@ Prerequisites
 
 Give it a try
 -------------
-After you have followed the above mentioned prerequisites, give your Servlet a try. Inside your local DIY checkout directory
+After you have followed the above mentioned prerequisites, give your Servlet a try. Inside your local DIY checkout directory  
+
     git add .
     git commit -m "My first commit"
     git push
