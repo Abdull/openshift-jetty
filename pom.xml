@@ -3,21 +3,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>jettyapp</groupId>
-  <artifactId>jettyapp</artifactId>
-  <packaging>war</packaging>
-  <version>1.0</version>
-  <name>jettyapp</name>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-  </properties>
-
-  <dependencies>
-  </dependencies>
-
+<!-- the following profiles section should be added to your project-specific pom.xml -->
   <profiles>
     <profile>
      <id>openshift</id>
@@ -36,5 +22,8 @@
       </build>
     </profile>
   </profiles>
+<!-- end profiles section -->  
+  
+  
 </project>
 
