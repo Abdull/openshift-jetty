@@ -1,3 +1,5 @@
 #!/bin/bash
 
-curl --silent -L https://raw.github.com/Abdull/openshift-jetty/master/stop.sh | bash
+cd ${OPENSHIFT_DATA_DIR}jetty
+
+kill `cat jetty.pid`

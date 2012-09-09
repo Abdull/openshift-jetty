@@ -1,17 +1,24 @@
-#!/bin/bash
-
-function run {
-  curl --silent -L https://raw.github.com/Abdull/openshift-jetty/master/$1.sh | bash
-  wait
-}
+#!/bin/sh
+echo "-----------------------------------------"
+echo "Executing ...start... user action hook"
+echo "-----------------------------------------"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "This .openshift start script is located in $DIR"
 echo "Current working directory for start script is `pwd`"
-echo "About to start pre_start / pre_start_diy-0.1 script"
-. $OPENSHIFT_REPO_DIR/.openshift/action_hooks/pre_start_diy-0.1
-echo "Finished pre_start_diy-0.1 script"
 
-run "setup"
-run "build"
-run "start"
+echo "cding to ${OPENSHIFT_DATA_DIR}jetty"
+cd ${OPENSHIFT_DATA_DIR}jetty
+
+# TODO find optimal Xmx setting... depends on free OpenShift instance and paid OpenShift instance, among other factors 
+CMD="java -Xmx384m -jar start.jar -Djetty.host=$OPENSHIFT_INTERNAL_IP -Djetty.port=$OPENSHIFT_INTERNAL_PORT"
+
+echo "Nohupping Jetty server"
+nohup $CMD > $OPENSHIFT_LOG_DIR/server.log 2>&1 &
+
+echo "Writing PID file"
+echo $! > jetty.pid
+
+echo "-----------------------------------------"
+echo "Finishing ...start... user action hook"
+echo "-----------------------------------------"
