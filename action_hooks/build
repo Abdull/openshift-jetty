@@ -1,0 +1,21 @@
+#!/bin/sh
+
+echo "-----------------------------------------"
+echo "Executing ...build... user action hook"
+echo "-----------------------------------------"
+
+cd $OPENSHIFT_REPO_DIR
+
+# the following exports are not needed, as the /usr/bin/mvn script already sets sensible exports
+# export JAVA_HOME=/usr/lib/jvm/java
+# export M2_HOME=/etc/alternatives/maven-3.0
+
+export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+
+mvn --global-settings ${OPENSHIFT_REPO_DIR}maven.xml --version
+echo "Starting build with a local Maven repository, cleaning, then packaging with profile openshift. Skipping tests"
+mvn --global-settings ${OPENSHIFT_REPO_DIR}maven.xml clean package -Popenshift -DskipTests
+
+echo "-----------------------------------------"
+echo "Finishing ...build... user action hook"
+echo "-----------------------------------------"

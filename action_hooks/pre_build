@@ -1,0 +1,46 @@
+#!/bin/sh
+
+echo "-----------------------------------------"
+echo "Executing ...pre_build... user action hook"
+echo "-----------------------------------------"
+
+JETTY_VERSION="8.1.5.v20120716"
+
+cd $OPENSHIFT_DATA_DIR
+
+echo "Checking for existing installation of Jetty ${JETTY_VERSION}"
+if [ -d "jetty" ] && [ "`cat jetty/VERSION`" == $JETTY_VERSION ]; then
+
+  echo "Jetty already installed"
+
+else
+
+  echo "Installing Jetty ${JETTY_VERSION}"
+
+  if [ -d "jetty" ]; then
+    rm -rf jetty
+  fi
+
+  echo "Downloading Jetty"
+  curl -o jetty.tar.gz "http://download.eclipse.org/jetty/stable-8/dist/jetty-distribution-${JETTY_VERSION}.tar.gz"
+
+  echo "Extracting Jetty"
+  tar -xf jetty.tar.gz
+  rm jetty.tar.gz
+
+  mv jetty-distribution-${JETTY_VERSION} jetty
+
+  echo "Writing VERSION file"
+  echo $JETTY_VERSION > jetty/VERSION
+
+  echo "Deleting sample directories"
+  rm -rf jetty/contexts/*
+  rm -rf jetty/webapps
+
+ # curl -o maven.xml "https://raw.github.com/Abdull/openshift-jetty/master/maven.xml"
+
+fi
+
+echo "-----------------------------------------"
+echo "Finishing ...pre_build... user action hook"
+echo "-----------------------------------------"

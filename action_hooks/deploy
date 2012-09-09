@@ -1,0 +1,20 @@
+#!/bin/sh
+
+echo "-----------------------------------------"
+echo "Executing ...deploy... user action hook"
+echo "-----------------------------------------"
+
+cd ${OPENSHIFT_DATA_DIR}jetty
+
+if [ -L webapps ]; then
+  rm webapps
+else
+  rm -rf webapps
+fi
+
+echo "Creating symlink from Jetty webapps folder to build artifact folder"
+ln -s ${OPENSHIFT_REPO_DIR}deployments webapps
+
+echo "-----------------------------------------"
+echo "Finishing ...deploy... user action hook"
+echo "-----------------------------------------"
