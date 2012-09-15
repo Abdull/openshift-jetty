@@ -37,6 +37,11 @@ Whenever something got pushed to your OpenShift remote repository, a git hook na
 * `stop`: OpenShift will call this script whenenver OpenShift stops your machine (for instance, when you call `ctl_app stop`). It looks for the PID file written by the `start` script and use it to identify 
 * the Jetty server process, then kill it.
 
+Rationale
+---------
+Why does the `openshift` Maven profile build the WAR into the `deployments` directory, instead of sticking with the regular `target` directory?
+* The `deploy` script creates a symlink from the Jetty `webapps` directory to the `deployments` build subdirectory. In the default Jetty configuration (as we are exploiting it in *this* repository), everything inside the Jetty `webapps` directory gets scanned by Jetty and possibly gets deployed by Jetty. Now let's imagine we would stick to constructing the WAR inside the default `target` directory. Besides the WAR there are lots of other artifacts and directories created by Maven during building in this directory. We don't want to confuse Jetty by having a bunch of JSP and class files in its serving folder. Therefore we put our final artifact, `ROOT.war`, lonely inside its own directory.
+
 Differences from the parent repository
 --------------------------------------
 * *This* template doesn't depend on on-the-fly script downloading from *this* repository. This is more reliable in case Github should be down. And this is more secure in case the Github repository should be updated with malicious content (i.e. no script injection).
